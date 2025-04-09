@@ -1,8 +1,10 @@
 import React, { useState } from 'react'
 import { IMAGES } from '../constants/image.js'
 import { loginUser } from '../lib/supabase.js';
+import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
+    const navigate = useNavigate()
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorMsg, setErrorMsg] = useState('');
@@ -13,7 +15,9 @@ export default function LoginPage() {
     try {
       const data = await loginUser(email, password);
       console.log('User logged in:', data);
-      // Navigate to dashboard or home page here
+      // Navigate to home page
+      navigate('/home')
+
     } catch (error) {
       setErrorMsg(error.message);
       alert(error.message)
