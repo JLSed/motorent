@@ -45,8 +45,10 @@ export default function LoginPage() {
                     <a href="" className="text-accent-blue text-sm">Forgot password?</a>
                     <button type='submit' className="bg-accent-gray rounded-xl font-bold p-4 mt-12 text-secondary text-center">Log in</button>
                 </form>
+                <button onClick={() => {navigate('/signup')}} className="bg-accent-gray rounded-xl font-bold p-4 mt-12 text-secondary text-center">Temporary Sign Up</button>
             </div>
         </div>
+        
     </main>
     </>
   )
