@@ -7,34 +7,14 @@ import { MdArticle } from "react-icons/md";
 import { FaMotorcycle } from "react-icons/fa";
 import { MdOutlinePayments, MdDirectionsBike } from "react-icons/md";
 import { IoIosSettings } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
+import HomeSideNav from '../components/HomeSideNav';
 export default function HomePage() {
   return (
     <main className="grid grid-cols-[auto,1fr,1fr] grid-rows-[auto,1fr] gap-4 h-svh bg-secondary font-poppins text-primary">
         <HeaderNav />
-        <aside className="ml-2 mb-2 bg-accent-gray text-secondary rounded-xl">
-            <div className="flex flex-col p-4 gap-4">
-                <div className="flex items-center gap-2">
-                    <RiDashboardFill />
-                    <p className="font-bold select-none">Dashboard</p>
-                </div>
-                <div className="flex items-center gap-2">
-                    <MdArticle />
-                    <a href="">Rental Log</a>
-                </div>
-                <div className="flex items-center gap-2">
-                    <FaMotorcycle />
-                    <a href="">Available Units</a>
-                </div>
-                <div className="flex items-center gap-2">
-                    <MdOutlinePayments />
-                    <a href="">Earnings</a>
-                </div>
-                <div className="flex items-center gap-2">
-                    <IoIosSettings />
-                    <a href="">Settings</a>
-                </div>
-            </div>
-        </aside>
+        <HomeSideNav />
+
 
         <div className="col-span-2 flex flex-col gap-4">
         <div className="">

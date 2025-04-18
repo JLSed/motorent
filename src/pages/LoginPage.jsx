@@ -27,12 +27,12 @@ export default function LoginPage() {
   return (
     <>
     <main className="flex bg-primary py-8 text-primary items-center justify-center h-svh font-poppins">
-        <div className="flex-1 bg-secondary p-4 justify-between flex gap-6">
-            <div className="relative overflow-hidden rounded-xl flex-1">
+        <div className="flex-1 bg-secondary  justify-between flex gap-6">
+            <div className="relative overflow-hidden flex-1">
                 <img src={IMAGES.login_background} alt="" className="brightness-50 w-full h-full object-cover" />
                 <h1 className="absolute bottom-0 font-outfit font-bold text-5xl text-secondary">MOTORENT</h1>
             </div>            
-            <div className="flex flex-col">
+            <div className="flex flex-col pr-6">
                 <div className="flex flex-col justify-center my-14">
                     <h2 className="font-outfit font-semibold text-2xl text-accent-gray">Login to</h2>
                     <h2 className="font-outfit font-semibold text-3xl text-accent-gray">MotoRent Management</h2>
