@@ -1,13 +1,13 @@
-import React from 'react';
-import { Routes, Route } from 'react-router-dom'; // Import Routes and Route
-import LoginPage from './LoginPage.jsx'; // Assuming this is your login page component
-import SignUpPage from './SignUpPage.jsx';
-import HomePage from './HomePage.jsx';
-import ProtectedRoute from '../components/ProtectedRoute.jsx';
-import UnitsPage from './UnitsPage.jsx';
-import RentalLogPage from './RentalLogPage.jsx';
-import EarningPage from './EarningPage.jsx';
-import SettingsPage from './SettingsPage.jsx';
+import React from "react";
+import { Routes, Route } from "react-router-dom"; // Import Routes and Route
+import LoginPage from "./LoginPage.jsx"; // Assuming this is your login page component
+import SignUpPage from "./SignUpPage.jsx";
+import HomePage from "./HomePage.jsx";
+import ProtectedRoute from "../components/ProtectedRoute.jsx";
+import UnitsPage from "./UnitsPage.jsx";
+import RentalLogPage from "./RentalLogPage.jsx";
+import EarningPage from "./EarningPage.jsx";
+import SettingsPage from "./SettingsPage.jsx";
 
 const App = () => {
   return (
@@ -30,7 +30,7 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path="/rental-log"
         element={
           <ProtectedRoute>
@@ -38,7 +38,7 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path="/earnings"
         element={
           <ProtectedRoute>
@@ -46,7 +46,7 @@ const App = () => {
           </ProtectedRoute>
         }
       />
-            <Route
+      <Route
         path="/settings"
         element={
           <ProtectedRoute>
@@ -57,6 +57,5 @@ const App = () => {
     </Routes>
   );
 };
-
 
 export default App;

@@ -1,23 +1,23 @@
-import React, { useState } from 'react';
-import { signUpUser } from '../lib/supabase';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { signUpUser } from "../lib/supabase";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [errorMsg, setErrorMsg] = useState('');
-  const [successMsg, setSuccessMsg] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+  const [successMsg, setSuccessMsg] = useState("");
 
   const handleSignUp = async (e) => {
     e.preventDefault();
 
     try {
       const user = await signUpUser(email, password);
-      console.log('User signed up:', user);
-      setSuccessMsg('Sign-up successful! Please check your email to confirm.');
-      setEmail('');
-      setPassword('');
+      console.log("User signed up:", user);
+      setSuccessMsg("Sign-up successful! Please check your email to confirm.");
+      setEmail("");
+      setPassword("");
     } catch (error) {
       setErrorMsg(error.message);
     }
@@ -25,7 +25,10 @@ const SignUpPage = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <form onSubmit={handleSignUp} className="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+      <form
+        onSubmit={handleSignUp}
+        className="bg-white p-6 rounded-lg shadow-md w-full max-w-md"
+      >
         <h2 className="text-2xl font-bold mb-4">Sign Up (Temporary)</h2>
 
         {errorMsg && <p className="text-red-500 mb-2">{errorMsg}</p>}
@@ -55,7 +58,14 @@ const SignUpPage = () => {
         >
           Sign Up
         </button>
-        <p onClick={() => {navigate('/')}} className="w-full mt-5 bg-gray-600 text-center cursor-pointer text-white p-2 rounded hover:bg-gray-600">Back to Login</p>
+        <p
+          onClick={() => {
+            navigate("/");
+          }}
+          className="w-full mt-5 bg-gray-600 text-center cursor-pointer text-white p-2 rounded hover:bg-gray-600"
+        >
+          Back to Login
+        </p>
       </form>
     </div>
   );

@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { getCurrentUser } from '../lib/supabase';
-import Loading from './Loading.jsx';
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { getCurrentUser } from "../lib/supabase";
+import Loading from "./Loading.jsx";
 
 const ProtectedRoute = ({ children }) => {
   const [user, setUser] = useState(null);
@@ -17,7 +17,7 @@ const ProtectedRoute = ({ children }) => {
     checkUser();
   }, []);
 
-  if (loading) return <Loading />
+  if (loading) return <Loading />;
 
   return user ? children : <Navigate to="/" replace />;
 };
