@@ -8,7 +8,7 @@ export default function AddNewUnit() {
   const [motorHP, setMotorHP] = useState("");
   const [purchasedDate, setPurchasedDate] = useState("");
   const [transmission, setTransmission] = useState("AT");
-  const [hourlyPrice, setHourlyPrice] = useState();
+  const [hourlyPrice, setHourlyPrice] = useState("");
   const [motorImage, setMotorImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -37,6 +37,7 @@ export default function AddNewUnit() {
         horsepower: motorHP,
         engine_displacement: motorCC,
         imageFile: motorImage,
+        hourly_rate: hourlyPrice,
       });
       setMotorName("");
       setPurchasedDate("");

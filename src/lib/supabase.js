@@ -59,6 +59,7 @@ export const addMotorUnit = async ({
   horsepower,
   engine_displacement,
   imageFile,
+  hourly_rate,
 }) => {
   const image_url = await uploadMotorImage(imageFile);
 
@@ -70,6 +71,7 @@ export const addMotorUnit = async ({
       transmission,
       horsepower,
       engine_displacement,
+      hourly_rate,
     },
   ]);
 
