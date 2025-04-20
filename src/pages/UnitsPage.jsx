@@ -10,7 +10,9 @@ export default function UnitsPage() {
     <main className="grid grid-cols-[auto,1fr,1fr] grid-rows-[auto,1fr] gap-4 h-svh bg-secondary font-poppins text-primary">
       <HeaderNav />
       <HomeSideNav />
-      <AddNewUnit />
+      <div className="col-span-2 flex flex-col gap-6 pr-2">
+        <AddNewUnit />
+      </div>
     </main>
   );
 }

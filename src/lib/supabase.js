@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { v4 as uuidv4 } from "uuid";
 
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
@@ -49,4 +50,49 @@ export const getCurrentUser = async () => {
 // Logout
 export const logoutUser = async () => {
   return await supabase.auth.signOut();
+};
+
+export const addMotorUnit = async ({
+  name,
+  purchased_date,
+  transmission,
+  horsepower,
+  engine_displacement,
+  imageFile,
+}) => {
+  const image_url = await uploadMotorImage(imageFile);
+
+  const { error } = await supabase.from("UNITS").insert([
+    {
+      name,
+      image_url,
+      purchased_date,
+      transmission,
+      horsepower,
+      engine_displacement,
+    },
+  ]);
+
+  if (error) throw error;
+};
+
+export const uploadMotorImage = async (file) => {
+  try {
+    const fileExt = file.name.split(".").pop();
+    const fileName = `${uuidv4()}.${fileExt}`;
+    const filePath = `${fileName}`;
+    const { error } = await supabase.storage
+      .from("motor-images")
+      .upload(filePath, file);
+
+    if (error) throw error;
+
+    const { data } = supabase.storage
+      .from("motor-images")
+      .getPublicUrl(filePath);
+    return data.publicUrl;
+  } catch (err) {
+    console.error("Error uploading image:", err.message);
+    throw err;
+  }
 };
