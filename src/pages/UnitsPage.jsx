@@ -3,7 +3,8 @@ import HeaderNav from "../components/HeaderNav";
 import HomeSideNav from "../components/HomeSideNav";
 
 import { FaImage } from "react-icons/fa";
-import AddNewUnit from "../components/AddNewUnit";
+import AddNewUnitSection from "../components/AddNewUnitSection";
+import AllUnitSection from "../components/AllUnitSection";
 
 export default function UnitsPage() {
   return (
@@ -11,7 +12,8 @@ export default function UnitsPage() {
       <HeaderNav />
       <HomeSideNav />
       <div className="col-span-2 flex flex-col gap-6 pr-2">
-        <AddNewUnit />
+        <AllUnitSection />
+        <AddNewUnitSection />
       </div>
     </main>
   );

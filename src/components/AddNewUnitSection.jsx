@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaImage } from "react-icons/fa";
 import { addMotorUnit } from "../lib/supabase";
 
-export default function AddNewUnit() {
+export default function AddNewUnitSection() {
   const [motorName, setMotorName] = useState("");
   const [motorCC, setMotorCC] = useState("");
   const [motorHP, setMotorHP] = useState("");

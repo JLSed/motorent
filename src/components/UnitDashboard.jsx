@@ -1,0 +1,97 @@
+import React from "react";
+import { RiToolsFill } from "react-icons/ri";
+import { FaMotorcycle } from "react-icons/fa";
+import { MdOutlinePayments, MdDirectionsBike } from "react-icons/md";
+import { useState, useEffect } from "react";
+import { getMotorUnits } from "../lib/supabase";
+
+export default function UnitDashboard() {
+  const [unitData, setUnitData] = useState({
+    occupied: 0,
+    available: 0,
+    underMaintenance: 0,
+    earnings: 0,
+  });
+
+  useEffect(() => {
+    async function fetchUnitData() {
+      try {
+        const data = await getMotorUnits();
+        const unitStatusCounts = data.reduce(
+          (acc, { status }) => {
+            switch (status) {
+              case "AVAILABLE":
+                acc.available++;
+                break;
+              case "OCCUPIED":
+                acc.occupied++;
+                break;
+              case "MAINTENANCE":
+                acc.underMaintenance++;
+                break;
+            }
+            return acc;
+          },
+          { available: 0, occupied: 0, underMaintenance: 0 }
+        );
+        setUnitData(unitStatusCounts);
+      } catch (error) {
+        console.error("Error fetching unit data:", error);
+      }
+    }
+
+    fetchUnitData();
+  }, []);
+
+  return (
+    <div className="font-poppins">
+      <p className="text-4xl font-semibold">Unit Status</p>
+      <div className="flex gap-4 font-outfit">
+        <div className="flex items-center gap-6 px-6 p-2 text-secondary bg-accent-gray rounded-lg">
+          <div>
+            <p id="occupied_unit" className="font-semibold text-3xl">
+              {unitData.occupied}
+            </p>
+            <p id="occupied_unit" className="text-sm">
+              Occupied
+            </p>
+          </div>
+          <MdDirectionsBike className="text-4xl" />
+        </div>
+        <div className="flex items-center gap-6 px-6 p-2 text-secondary bg-accent-gray rounded-lg">
+          <div>
+            <p id="available_unit" className="font-semibold text-3xl">
+              {unitData.available}
+            </p>
+            <p id="available_unit" className="text-sm">
+              Available
+            </p>
+          </div>
+          <FaMotorcycle className="text-4xl" />
+        </div>
+        <div className="flex items-center gap-6 px-6 p-2 text-secondary bg-accent-gray rounded-lg">
+          <div>
+            <p id="maintenance_unit" className="font-semibold text-3xl">
+              {unitData.underMaintenance}
+            </p>
+            <p id="maintenance_unit" className="text-sm">
+              Under Maintenance
+            </p>
+          </div>
+          <RiToolsFill className="text-4xl" />
+        </div>
+        <div className="flex items-center gap-6 px-6 p-2 text-secondary bg-accent-gray rounded-lg">
+          <div>
+            <p id="earnings_today" className="font-semibold text-3xl">
+              PHP {unitData.earnings}
+            </p>
+            <p id="earnings_today" className="text-sm">
+              Earnings (Today)
+            </p>
+          </div>
+          <MdOutlinePayments className="text-4xl" />
+        </div>
+      </div>
+    </div>
+  );
+}

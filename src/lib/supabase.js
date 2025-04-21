@@ -98,3 +98,32 @@ export const uploadMotorImage = async (file) => {
     throw err;
   }
 };
+
+export const getMotorUnits = async () => {
+  try {
+    const { data, error } = await supabase.from("UNITS").select("*");
+
+    if (error) throw error;
+
+    return data;
+  } catch (err) {
+    console.error("Error fetching motor units:", err.message);
+    throw err;
+  }
+};
+
+export const updateMotorUnit = async (id, updatedData) => {
+  try {
+    const { error } = await supabase
+      .from("UNITS")
+      .update(updatedData)
+      .eq("unit_id", id);
+
+    if (error) throw error;
+
+    return true; // Return success
+  } catch (err) {
+    console.error("Error updating motor unit:", err.message);
+    throw err;
+  }
+};
