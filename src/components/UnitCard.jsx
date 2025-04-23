@@ -6,7 +6,7 @@ export default function UnitCards({ units, onCardClick }) {
       {units.map((unit) => (
         <div
           key={unit.id}
-          className="flex-shrink-0 flex min-w-60 items-center gap-6 px-6 p-2 text-secondary bg-accent-light rounded-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105"
+          className="select-none flex-shrink-0 flex min-w-60 items-center gap-6 px-6 p-2 text-secondary bg-accent-light rounded-lg hover:shadow-xl transition-all duration-300 cursor-pointer hover:scale-105"
           onClick={() => onCardClick(unit)} // Handle card click
         >
           <div>

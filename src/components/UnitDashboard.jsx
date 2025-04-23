@@ -1,9 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { RiToolsFill } from "react-icons/ri";
 import { FaMotorcycle } from "react-icons/fa";
 import { MdOutlinePayments, MdDirectionsBike } from "react-icons/md";
-import { useState, useEffect } from "react";
-import { getMotorUnits } from "../lib/supabase";
+import { getMotorUnits, getTodayEarnings } from "../lib/supabase";
 
 export default function UnitDashboard() {
   const [unitData, setUnitData] = useState({
@@ -34,7 +33,11 @@ export default function UnitDashboard() {
           },
           { available: 0, occupied: 0, underMaintenance: 0 }
         );
-        setUnitData(unitStatusCounts);
+
+        // Fetch today's earnings
+        const earnings = await getTodayEarnings();
+
+        setUnitData({ ...unitStatusCounts, earnings });
       } catch (error) {
         console.error("Error fetching unit data:", error);
       }
@@ -83,7 +86,7 @@ export default function UnitDashboard() {
         <div className="flex items-center gap-6 px-6 p-2 text-secondary bg-accent-gray rounded-lg">
           <div>
             <p id="earnings_today" className="font-semibold text-3xl">
-              PHP {unitData.earnings}
+              {unitData.earnings} PHP
             </p>
             <p id="earnings_today" className="text-sm">
               Earnings (Today)

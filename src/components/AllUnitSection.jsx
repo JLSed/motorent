@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { FiFilter } from "react-icons/fi";
+import { FiFilter, FiSearch } from "react-icons/fi";
 import { IoIosArrowDown } from "react-icons/io";
 import { getMotorUnits } from "../lib/supabase";
 import UnitCards from "./UnitCard";
@@ -116,13 +116,16 @@ export default function AllUnitSection() {
     <div className="bg-white rounded-lg text-primary p-4 w-auto shadow-lg">
       <p className="text-2xl font-semibold mb-4">UNIT DETAILS</p>
       <div className="flex gap-4 items-center mb-4">
-        <input
-          type="text"
-          placeholder="Search by Name"
-          className="border border-gray-300 rounded-lg p-2"
-          value={searchQuery}
-          onChange={handleSearch} // Attach the search handler
-        />
+        <div className="relative flex items-center gap-2">
+          <FiSearch className="absolute left-2 text-gray-500 text-2xl" />
+          <input
+            type="text"
+            placeholder="Search by Name"
+            className="border border-gray-300 rounded-lg p-2 pl-9"
+            value={searchQuery}
+            onChange={handleSearch} // Attach the search handler
+          />
+        </div>
         <div className="flex gap-4 items-center text-lg text-gray-500 cursor-pointer">
           <div className="flex" onClick={toggleSubmenu}>
             <FiFilter className="text-3xl" />

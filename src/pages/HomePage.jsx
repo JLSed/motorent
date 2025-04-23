@@ -1,15 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import HeaderNav from "../components/HeaderNav";
-
-import { RiDashboardFill, RiToolsFill } from "react-icons/ri";
-import { MdArticle } from "react-icons/md";
-import { FaMotorcycle } from "react-icons/fa";
-import { MdOutlinePayments, MdDirectionsBike } from "react-icons/md";
-import { IoIosSettings } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
 import HomeSideNav from "../components/HomeSideNav";
 import UnitDashboard from "../components/UnitDashboard";
+import { getInUseRequests } from "../lib/supabase";
+
 export default function HomePage() {
+  const [inUseRequests, setInUseRequests] = useState([]);
+
+  useEffect(() => {
+    const fetchInUseRequests = async () => {
+      try {
+        const data = await getInUseRequests();
+        setInUseRequests(data);
+      } catch (err) {
+        console.error("Error fetching 'IN-USED' requests:", err.message);
+      }
+    };
+
+    fetchInUseRequests();
+  }, []);
+
+  const calculateRemainingTime = (endDate) => {
+    const now = new Date();
+    const end = new Date(endDate);
+    const diff = end - now;
+
+    if (diff <= 0) return "Expired";
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    return `${hours} Hr, ${minutes} Min`;
+  };
+
   return (
     <main className="grid grid-cols-[auto,1fr,1fr] grid-rows-[auto,1fr] gap-4 h-svh bg-secondary font-poppins text-primary">
       <HeaderNav />
@@ -29,20 +51,26 @@ export default function HomePage() {
                 View All
               </button>
             </div>
-            <table>
+            <table className="w-full">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Unit</th>
-                  <th>Remaining Time</th>
+                  <th className="text-left p-2">Name</th>
+                  <th className="text-left p-2">Unit</th>
+                  <th className="text-left p-2">Remaining Time</th>
                 </tr>
               </thead>
               <tbody className="text-center text-secondary">
-                <tr>
-                  <td>B.A Bogart</td>
-                  <td>Honda Click V3</td>
-                  <td>3 Hr, 32 Min</td>
-                </tr>
+                {inUseRequests.map((request, index) => (
+                  <tr key={index} className="hover:bg-gray-100">
+                    <td className="p-2">
+                      {request.first_name} {request.last_name}
+                    </td>
+                    <td className="p-2">{request.UNITS.name}</td>
+                    <td className="p-2">
+                      {calculateRemainingTime(request.end_date)}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
