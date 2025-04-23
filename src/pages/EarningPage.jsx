@@ -86,7 +86,7 @@ export default function EarningPage() {
     <main className="grid grid-cols-[auto,1fr,1fr] grid-rows-[auto,1fr] gap-4 h-svh bg-secondary font-poppins text-primary">
       <HeaderNav />
       <HomeSideNav />
-      <main className="p-4">
+      <main className="col-span-2 flex flex-col gap-6 pr-2">
         <h1 className="text-2xl font-semibold mb-4">Earnings Summary</h1>
         <div className="grid grid-cols-3 gap-4 mb-8">
           <div className="bg-white p-4 rounded-lg shadow">

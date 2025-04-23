@@ -326,7 +326,9 @@ export const getInUseRequests = async () => {
   try {
     const { data, error } = await supabase
       .from("REQUESTS")
-      .select("first_name, last_name, UNITS(name), end_date")
+      .select(
+        "request_id, first_name, last_name, contact_num, UNITS(unit_id, name, image_url), start_date, end_date"
+      )
       .eq("status", "IN-USE");
 
     if (error) throw error;
@@ -334,6 +336,34 @@ export const getInUseRequests = async () => {
     return data;
   } catch (err) {
     console.error("Error fetching 'IN-USE' requests:", err.message);
+    throw err;
+  }
+};
+
+export const markUnitAsAvailable = async (unitId, requestId) => {
+  try {
+    // Update the unit status to "AVAILABLE"
+    const { error: unitError } = await supabase
+      .from("UNITS")
+      .update({ status: "AVAILABLE" })
+      .eq("unit_id", unitId);
+
+    if (unitError) throw unitError;
+
+    // Update the request status to "COMPLETED"
+    const { error: requestError } = await supabase
+      .from("REQUESTS")
+      .update({ status: "COMPLETED" })
+      .eq("request_id", requestId);
+
+    if (requestError) throw requestError;
+
+    return true;
+  } catch (err) {
+    console.error(
+      "Error marking unit as available and request as completed:",
+      err.message
+    );
     throw err;
   }
 };

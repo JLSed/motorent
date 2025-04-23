@@ -4,7 +4,7 @@ import { FaMotorcycle } from "react-icons/fa";
 import { MdOutlinePayments, MdDirectionsBike } from "react-icons/md";
 import { getMotorUnits, getTodayEarnings } from "../lib/supabase";
 
-export default function UnitDashboard() {
+export default function UnitDashboard({ refresh }) {
   const [unitData, setUnitData] = useState({
     occupied: 0,
     available: 0,
@@ -12,39 +12,39 @@ export default function UnitDashboard() {
     earnings: 0,
   });
 
-  useEffect(() => {
-    async function fetchUnitData() {
-      try {
-        const data = await getMotorUnits();
-        const unitStatusCounts = data.reduce(
-          (acc, { status }) => {
-            switch (status) {
-              case "AVAILABLE":
-                acc.available++;
-                break;
-              case "OCCUPIED":
-                acc.occupied++;
-                break;
-              case "MAINTENANCE":
-                acc.underMaintenance++;
-                break;
-            }
-            return acc;
-          },
-          { available: 0, occupied: 0, underMaintenance: 0 }
-        );
+  const fetchUnitData = async () => {
+    try {
+      const data = await getMotorUnits();
+      const unitStatusCounts = data.reduce(
+        (acc, { status }) => {
+          switch (status) {
+            case "AVAILABLE":
+              acc.available++;
+              break;
+            case "OCCUPIED":
+              acc.occupied++;
+              break;
+            case "MAINTENANCE":
+              acc.underMaintenance++;
+              break;
+          }
+          return acc;
+        },
+        { available: 0, occupied: 0, underMaintenance: 0 }
+      );
 
-        // Fetch today's earnings
-        const earnings = await getTodayEarnings();
+      // Fetch today's earnings
+      const earnings = await getTodayEarnings();
 
-        setUnitData({ ...unitStatusCounts, earnings });
-      } catch (error) {
-        console.error("Error fetching unit data:", error);
-      }
+      setUnitData({ ...unitStatusCounts, earnings });
+    } catch (error) {
+      console.error("Error fetching unit data:", error);
     }
+  };
 
+  useEffect(() => {
     fetchUnitData();
-  }, []);
+  }, [refresh]); // Re-fetch data whenever the refresh prop changes
 
   return (
     <div className="font-poppins">
