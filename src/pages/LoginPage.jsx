@@ -34,7 +34,7 @@ export default function LoginPage() {
               className="brightness-50 w-full h-full object-cover"
             />
             <h1 className="absolute bottom-0 font-outfit font-bold text-5xl text-secondary">
-              MOTORENT
+              MMC Motorcycle Rentals
             </h1>
           </div>
           <div className="flex flex-col pr-6">
@@ -43,7 +43,7 @@ export default function LoginPage() {
                 Login to
               </h2>
               <h2 className="font-outfit font-semibold text-3xl text-accent-gray">
-                MotoRent Management
+                MMC Rentals Management
               </h2>
             </div>
             <form onSubmit={handleLogin} className="flex flex-col flex-1">
